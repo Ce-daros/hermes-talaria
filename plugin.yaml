@@ -1,0 +1,32 @@
+name: hermes-talaria
+version: 0.1.0
+description: "Hermes tool-output compression and AST/LSP code intelligence"
+author: "Ame"
+license: MIT
+provides_tools:
+  - talaria_retrieve
+  - talaria_stats
+  - talaria_compress
+  - code_symbols
+  - code_search
+  - code_refactor
+  - code_definition
+  - code_references
+  - code_diagnostics
+  - code_callers
+  - code_callees
+  - code_capsule
+  - code_workspace_summary
+  - code_impact
+  - code_tests_for_symbol
+  - code_query
+  - code_rename
+  - code_workspace_symbols
+  - code_hover
+  - code_type_definition
+  - code_signatures
+  - code_action
+hooks:
+  - transform_terminal_output
+  - transform_tool_result
+  - on_session_end
