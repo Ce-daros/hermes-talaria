@@ -6,6 +6,8 @@
 [![Hermes](https://img.shields.io/badge/Hermes-Agent-orange)](https://github.com/NousResearch/hermes-agent)
 [![Python](https://img.shields.io/badge/python-3.11%2B-blue)](https://www.python.org/)
 
+![hermes-talaria banner](assets/banner.png)
+
 > Compress the noise out of tool output and navigate code at AST speed.  
 > `hermes-talaria` gives your agent winged sandals: less context bloat, faster code comprehension.
 
