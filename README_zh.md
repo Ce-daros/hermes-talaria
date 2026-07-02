@@ -6,6 +6,8 @@
 [![Hermes](https://img.shields.io/badge/Hermes-Agent-orange)](https://github.com/NousResearch/hermes-agent)
 [![Python](https://img.shields.io/badge/python-3.11%2B-blue)](https://www.python.org/)
 
+[🇺🇸 English README](README.md)
+
 ![hermes-talaria banner](assets/banner.png)
 
 > 压缩工具输出的噪音，用 AST 速度读懂代码。  
