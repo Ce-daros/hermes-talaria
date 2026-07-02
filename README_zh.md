@@ -6,19 +6,23 @@
 [![Hermes](https://img.shields.io/badge/Hermes-Agent-orange)](https://github.com/NousResearch/hermes-agent)
 [![Python](https://img.shields.io/badge/python-3.11%2B-blue)](https://www.python.org/)
 
-> 压缩工具输出的噪音，以 AST 速度导航代码。  
-> `hermes-talaria` 给你的 Agent 装上飞鞋：上下文更少膨胀，代码理解更快。
+![hermes-talaria banner](assets/banner.png)
 
-## 里面有什么
+> 压缩工具输出的噪音，用 AST 速度读懂代码。  
+> `hermes-talaria` 给 Hermes Agent 装上飞鞋：上下文更少膨胀，代码理解更快。
 
-| 模块 | 作用 |
-|------|------|
-| **Talaria 压缩层** | 通过 `headroom` 自动压缩终端与工具输出，按 hash 保存原文，模型需要时可随时取回。 |
-| **原生代码智能** | tree-sitter + ast-grep + LSP bridge，提供符号、定义、引用、诊断、重构和工作区摘要。 |
+## 这个插件是干嘛的
 
-## 压缩实测
+`hermes-talaria` 是 Hermes Agent 的插件，主要做两件事：
 
-在 VPS 的 Hermes venv 中，使用 `cl100k_base` tokenizer 实测。
+1. **Talaria 压缩层**：自动压缩终端和工具返回的大段输出，把原文按 hash 存起来，Agent 需要时再取回。
+2. **原生代码智能**：用 tree-sitter、ast-grep 和 LSP 提供符号、定义、引用、诊断、重构、工作区摘要等能力。
+
+一句话：**让上下文窗口少装垃圾，多装代码**。
+
+## 压缩效果
+
+在 VPS 的 Hermes venv 里，用 `cl100k_base` tokenizer 实测。
 
 | 场景 | 原始 Token | 压缩后 Token | 节省 |
 |---:|---:|---:|---:|
@@ -26,26 +30,26 @@
 | 重复 `ls -la`（×500） | 13,999 | 1,683 | **88.0%** |
 | 重复 stack trace（×200） | 15,400 | 1,853 | **88.0%** |
 | 重复 Rust warnings（×200） | 9,400 | 1,133 | **87.9%** |
-| **平均值** | **54,298** | **6,533** | **88.0%** |
+| **平均** | **54,298** | **6,533** | **88.0%** |
 
-想要原文？用 `talaria_retrieve` 传入 hash 即可。
+想取回原文？调用 `talaria_retrieve` 并传入 hash 就行。
 
 ## 压缩前后对比
 
 ```text
-# 原始：500 行完全相同的错误日志
+# 原始：500 行一模一样的错误日志
 2026-07-02T10:00:00.000Z api-service ERROR request_id=deadbeef connection timeout after 30s
 2026-07-02T10:00:00.000Z api-service ERROR request_id=deadbeef connection timeout after 30s
-... 498 行 ...
+... 还有 498 行 ...
 
-# Talaria 压缩后：体积减少约 88%，附带 hash
+# Talaria 压缩后：体积缩小约 88%，并附带 hash
 2026-07-02T10:00:00.000Z api-service ERROR request_id=deadbeef connection timeout after 30s
 ...[compressed]...
 2026-07-02T10:00:00.000Z api-service ERROR request_id=deadbeef connection timeout after 30s
 [talaria] {"hash": "a1b2c3d4...", "tokens_saved": 13635}
 ```
 
-## 代码智能实测
+## 代码智能效果
 
 对 `__init__.py`（163 行 Python）执行 `code_symbols`：
 
